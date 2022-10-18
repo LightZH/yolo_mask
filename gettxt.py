@@ -25,11 +25,13 @@ if __name__ == '__main__':
     train_list = []
     test_list = []
     val_list = []
+    train_rate = 0.9
+    test_rate = 0.09
     # label_list = split(label_mask)
-    for i in range(400):
-        if i < 360:
+    for i in range(len(image_list)):
+        if i < int(len(image_list) * train_rate):
             train_list.append("data/images/" + image_list[i])
-        elif i < 396:
+        elif i < int(len(image_list) * (train_rate + test_rate)):
             test_list.append("data/images/" + image_list[i])
         else:
             val_list.append("data/images/" + image_list[i])
