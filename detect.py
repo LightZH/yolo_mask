@@ -45,6 +45,7 @@ from utils.general import (LOGGER, check_file, check_img_size, check_imshow, che
                            increment_path, non_max_suppression, print_args, scale_coords, strip_optimizer, xyxy2xywh)
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
+from nose import main_nose
 
 
 @torch.no_grad()
@@ -212,11 +213,14 @@ def run(
     if update:
         strip_optimizer(weights[0])  # update model (to fix SourceChangeWarning)
 
+    # 规范性
+    main_nose(source, str(save_dir))
+
 
 def parse_opt():
     parser = argparse.ArgumentParser()
     parser.add_argument('--weights', nargs='+', type=str, default='./200_run/weights/best.pt', help='model path(s)')
-    parser.add_argument('--source', type=str, default='./data/test', help='file/dir/URL/glob, 0 for webcam')
+    parser.add_argument('--source', type=str, default='./data/testimages', help='file/dir/URL/glob, 0 for webcam')
     parser.add_argument('--data', type=str, default='./data/mask.yaml', help='(optional) dataset.yaml path')
     parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[320], help='inference size h,w')
     parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
